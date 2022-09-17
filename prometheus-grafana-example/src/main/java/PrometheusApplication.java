@@ -1,7 +1,6 @@
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.Histogram;
-import io.prometheus.client.Summary;
 import io.prometheus.client.exporter.HTTPServer;
 import io.prometheus.client.hotspot.DefaultExports;
 import org.slf4j.Logger;
@@ -40,7 +39,7 @@ public class PrometheusApplication {
                 Random random = new Random();
                 Histogram.Timer startTimer = histogram.labels("request").startTimer();
                 Thread.sleep(random.nextInt(1000));
-                counter.labels("request").inc(2.0);
+                counter.labels("request").inc(random.nextInt(10));
                 startTimer.observeDuration();
                 gauge.labels("accuracy").set(random.nextInt(20) + 81);
             }
